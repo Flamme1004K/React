@@ -1,10 +1,13 @@
-import React, {useState} from 'react';
+import React, {useState, useRef} from 'react';
+
+//돔을 직접 접근하기 위한 방법인 useRef라는 개념이 있다.
 
 function InputSample() {
     const [inputs, setInputs] = useState({
         name : '',
         nickName : ''
     });
+    const nameInput = useRef();
     const {name, nickName} = inputs;
     const onChange = (e) => {
 
@@ -30,10 +33,11 @@ function InputSample() {
             name : '',
             nickName : ''
         });
+        nameInput.current.focus();
     };
     return (
         <div>
-            <input name="name" placeholder="이름" onChange={onChange} value={name}/>
+            <input name="name" placeholder="이름" onChange={onChange} value={name} ref={nameInput}/>
             <input name="nickName" placeholder="닉네임" onChange={onChange} value={nickName}/>
             <button onClick={onReset}>초기화</button>
             <div>

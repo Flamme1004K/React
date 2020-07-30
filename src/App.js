@@ -4,6 +4,7 @@ import './App.css';
 import Wrapper from './Wrapper';
 import Counter from './Counter'; //useState사용
 import InputSample from './InputSample';
+import UserList from './UserList';
 
 function App() {
  
@@ -15,6 +16,7 @@ function App() {
       <Hello name ="react" color="red" isSpecial={true}/>
       <Hello color="pink"/>
     </Wrapper> 
+    <UserList/>
     </>
   );  
 
