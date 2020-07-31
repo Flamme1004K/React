@@ -1,35 +1,22 @@
 import React from 'react';
 
-function User({user}) {
+function User({user, onRemove}) {
+    const {username, email, id} = user;
     return (
         <div>
-            <b>{user.username}</b> <span>({user.email})</span>
+            <b>{username}</b> <span>({email})</span>
+            <button onClick={()=> onRemove(id)}>삭제</button>
+            {/* <button onClick={onRemove(id)}>삭제</button>  <- 이렇게하면 랜더링 되는 즉시 반영된다*/}
         </div>
     );
 }
 
-function UserList(){
-    const users = [
-        {
-            id : 1,
-            username : 'test1',
-            email : 'test1@example.com'
-        },
-        {
-            id : 2,
-            username : 'test2',
-            email : 'test2@example.com'
-        },
-        {
-            id : 3,
-            username : 'test3',
-            email : 'test3@example.com'
-        }
-    ];
+function UserList({users, onRemove}){
+    
     return (<div>
                 {
                     users.map(
-                        user =>  (<User user={user} key={user.id}/>)
+                        user =>  (<User user={user} key={user.id} onRemove={onRemove}/>)
                     )
                 }
     </div>);
