@@ -23,17 +23,20 @@ function App() {
     {
         id : 1,
         username : 'test1',
-        email : 'test1@example.com'
+        email : 'test1@example.com',
+        active : true 
     },
     {
         id : 2,
         username : 'test2',
-        email : 'test2@example.com'
+        email : 'test2@example.com',
+        active : false
     },
     {
         id : 3,
         username : 'test3',
-        email : 'test3@example.com'
+        email : 'test3@example.com',
+        active : false
     }
   ]);
   
@@ -65,11 +68,19 @@ function App() {
     setUsers(users.filter(user => user.id !== id));
     //파라미터와 일치하지 않는것들만 추출하겟다.
   }
+
+  const onToggle = id => {
+    setUsers(users.map(
+      user =>  user.id === id 
+        ? {...user, active : !user.active}
+        : user
+    ))
+  }
  
   return (
     <>
     <CreateUser username={username} email={email} onChange={onChange} onCreate={onCreate}/>
-    <UserList users={users} onRemove={onRemove}/>
+    <UserList users={users} onRemove={onRemove} onToggle={onToggle}/>
     </>
   );  
 
