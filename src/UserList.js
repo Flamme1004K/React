@@ -1,7 +1,47 @@
-import React from 'react';
+import React,{useEffect} from 'react';
+
+/*
+//컴포넌트 나타난다는게 마운트이다.
+//삭제하여 없어지는 것이 언마운트이다.
+
+useEffect(()=> {
+        
+        console.log('컴포넌트가 화면에 나타남.');
+        //props -> state
+        //REST-API
+        //LIBRARY
+        //SET INTERVAL
+        // --> UI가 화면에 나타나는 경우
+        return ()=>{
+            // clearInterval
+            // clearTimeout
+            // 라이브러리 삭제 기능
+            // 뒷정리함수
+            console.log('컴포넌트가 화면에서 사라짐');
+            
+        } 
+        
+    }, [])
+
+*/
+
+
 
 function User({user, onRemove, onToggle}) {
     const {username, email, id, active} = user;
+    useEffect(()=> {
+        console.log('user 값이 설정됨')
+        console.log(user);
+        return () => {
+            console.log('user 값이 바뀌기 전')
+            console.log(user)
+        }
+    }, [user]);
+    // 1. 함수 2. deps 등록(필수) --> 비우면 처음 나타날때만 호출 3. return은 뒷정리 함수 이다.
+    //useEffect를 사용하면 deps에 넣은 해당 값이 바뀔 때마다 실행된다.
+    //처음 나타날때도 실행이 된다.
+    //리액트에서는 부모 컴포넌트라 렌더링되면 자식 컴포넌트도 렌더링 된다.
+    //페이지 렌더링 일때도 사용한다.
     return (
         <div>
             <b style={{
