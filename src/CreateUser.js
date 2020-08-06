@@ -10,4 +10,6 @@ function CreateUser ({username, email, onChange, onCreate}) {
     );
 }
 
-export default CreateUser;
+export default React.memo(CreateUser);
+//React.memo란?
+//프록스가 바겼을 때만 값이 반영된다.

@@ -27,7 +27,7 @@ useEffect(()=> {
 
 
 
-function User({user, onRemove, onToggle}) {
+const User = React.memo(function User({user, onRemove, onToggle}) {
     const {username, email, id, active} = user;
     useEffect(()=> {
         console.log('user 값이 설정됨')
@@ -55,7 +55,7 @@ function User({user, onRemove, onToggle}) {
             {/* <button onClick={onRemove(id)}>삭제</button>  <- 이렇게하면 랜더링 되는 즉시 반영된다*/}
         </div>
     );
-}
+});
 
 function UserList({users, onRemove, onToggle}){
     
@@ -70,4 +70,4 @@ function UserList({users, onRemove, onToggle}){
     //리액트는 각 배열의 원소를 전부 랜더링 하고 있기 때문이다.
 }
 
-export default UserList;
+export default React.memo(UserList, (prevProps, nextProps)=> nextProps.users === prevProps.users );

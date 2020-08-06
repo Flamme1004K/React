@@ -1,8 +1,8 @@
-import React,{ useRef, useState, useMemo } from 'react';
+import React,{ useRef, useState, useMemo, useCallback } from 'react';
 import './App.css';
 import UserList from './UserList';
 import CreateUser from './CreateUser';
-
+//useCallback 바뀌면 함수를 실행하도록 한다.
 
 function countActiveUsers(users) {
   console.log('활성사용자 수를 세는중...')
@@ -16,14 +16,6 @@ function App() {
   });
 
   const {username, email} = inputs;
-
-  const onChange = e => {
-    const {name, value} = e.target;
-    setInputs({
-      ...inputs,
-      [name] : value
-    });
-  }
 
   const [users, setUsers] = useState([
     {
@@ -52,7 +44,7 @@ function App() {
   // nextId.current += 1; --> 1+ 
   // 기본값을 넣어버리면 리랜더링해도 그 값은 유지 된다.
   
-  const onCreate = () => {
+  const onCreate = useCallback(() => {
     const user = {
       id : nextId.current,
       username,
@@ -61,27 +53,35 @@ function App() {
     }
 
     //setUsers([...users, user]);
-    setUsers(users.concat(user));
+    setUsers(users => users.concat(user));
 
     setInputs({
       username : '',
       email : ''
     });
     nextId.current += 1;
-  };
+  },[username, email]);
 
-  const onRemove = id => {
-    setUsers(users.filter(user => user.id !== id));
+  const onRemove = useCallback(id => {
+    setUsers(users => users.filter(user => user.id !== id));
     //파라미터와 일치하지 않는것들만 추출하겟다.
-  }
+  },[]);
 
-  const onToggle = id => {
-    setUsers(users.map(
+  const onToggle = useCallback(id => {
+    setUsers(users => users.map(
       user =>  user.id === id 
         ? {...user, active : !user.active}
         : user
     ))
-  }
+  }, []);
+
+  const onChange = useCallback(e => {
+    const {name, value} = e.target;
+    setInputs({
+      ...inputs,
+      [name] : value
+    });
+  },[inputs]);
  
   const count = useMemo(() =>countActiveUsers(users), [users]); //컴포넌트 최적화
 
