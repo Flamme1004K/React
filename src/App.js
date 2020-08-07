@@ -2,7 +2,11 @@ import React,{ useRef, useState, useMemo, useCallback } from 'react';
 import './App.css';
 import UserList from './UserList';
 import CreateUser from './CreateUser';
+import Counter from './Counter';
 //useCallback 바뀌면 함수를 실행하도록 한다.
+
+//reducer : 상태를 업데이트하는 함수
+//dispatch : 보내다
 
 function countActiveUsers(users) {
   console.log('활성사용자 수를 세는중...')
