@@ -7,7 +7,7 @@ import CreateUser from './CreateUser';
 //reducer : 상태를 업데이트하는 함수
 //dispatch : 보내다
 
-//useReducer와 useState의 사용은 상황에 따라서 반복이 필요할때는 Reducer를 사용한다.
+//useReducer와 useState의 사용은 상황에 따라서 반복이 필요할때는 Reducer를 사용한다. 간단한거면 useState사용
 
 function countActiveUsers(users) {
   console.log('활성사용자 수를 세는중...')
