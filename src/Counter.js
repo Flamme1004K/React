@@ -1,5 +1,5 @@
 import React, { useReducer } from 'react';
-//정리하기
+
 function reducer(state, action) {
     switch(action.type) {
         case 'INCREMENT' :
