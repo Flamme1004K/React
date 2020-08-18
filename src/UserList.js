@@ -1,4 +1,5 @@
-import React,{useEffect} from 'react';
+import React,{useEffect, useContext} from 'react';
+import {UserDispatch} from './App'
 
 /*
 //컴포넌트 나타난다는게 마운트이다.
@@ -27,8 +28,9 @@ useEffect(()=> {
 
 
 
-const User = React.memo(function User({user, onRemove, onToggle}) {
+const User = React.memo(function User({user}) {
     const {username, email, id, active} = user;
+    const dispatch = useContext(UserDispatch);
     useEffect(()=> {
         console.log('user 값이 설정됨')
         console.log(user);
@@ -48,21 +50,23 @@ const User = React.memo(function User({user, onRemove, onToggle}) {
                 color : active ? 'green' : 'black',
                 cursor : 'pointer'
             }}
-            onClick={() => onToggle(id)}>
+            onClick={() => dispatch({
+                type: 'TOGGLE_USER', id
+                })}>
             &nbsp;
                 {username}</b> <span>({email})</span>
-            <button onClick={()=> onRemove(id)}>삭제</button>
+            <button onClick={()=> dispatch({type: 'REMOVE_USER', id})}>삭제</button>
             {/* <button onClick={onRemove(id)}>삭제</button>  <- 이렇게하면 랜더링 되는 즉시 반영된다*/}
         </div>
     );
 });
 
-function UserList({users, onRemove, onToggle}){
+function UserList({users}){
     
     return (<div>
                 {
                     users.map(
-                        user =>  (<User user={user} key={user.id} onRemove={onRemove} onToggle={onToggle}/>)
+                        user =>  (<User user={user} key={user.id} />)
                     )
                 }
     </div>);
